@@ -11,10 +11,12 @@ import android.widget.TextView;
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
+    private final KeybaseSearchFragment mSearchFragment;
     private final String[] TITLES = { "Search", "Tracking", "Profile", "Fourth", "Fifth" };
 
     public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
+        mSearchFragment = new KeybaseSearchFragment();
     }
 
     @Override
@@ -24,6 +26,9 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+       if (position == 0) {
+            return mSearchFragment;
+        }
         MainPagerFragment fragment = new MainPagerFragment();
         Bundle args = new Bundle();
         args.putInt(MainPagerFragment.ARG_OBJECT, position);
@@ -43,10 +48,20 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         public View onCreateView(LayoutInflater inflater,
                                  ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(
-                    R.layout.fragment_keybase_search, container, false);
+                    R.layout.fragment_pager_main, container, false);
             Bundle args = getArguments();
-//            ((TextView) rootView.findViewById(R.id.pager_text))
-//                    .setText(Integer.toString(args.getInt(ARG_OBJECT)));
+            ((TextView) rootView.findViewById(R.id.pager_text))
+                    .setText(Integer.toString(args.getInt(ARG_OBJECT)));
+            return rootView;
+        }
+    }
+
+    public static class KeybaseSearchFragment extends Fragment {
+        @Override
+        public View onCreateView(LayoutInflater inflater,
+                                 ViewGroup container, Bundle savedInstanceState) {
+            View rootView = inflater.inflate(
+                    R.layout.fragment_keybase_search, container, false);
             return rootView;
         }
     }
