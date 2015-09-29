@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/MyActionBar</item>
+
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="elevation">0dp</item>
+
+    </style>
+    
+    <style name="MyActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="android:background">@color/primary</item>
+
+        <!-- Support library compatibility -->
+        <item name="background">@color/primary</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <style name="TabsLayout" parent="Widget.Design.TabLayout">
+        <item name="background">@color/primary_dark</item>
+        <item name="android:textColor">@color/primary_light</item>
+        <item name="tabIndicatorColor">@color/accent</item>
+        <item name="tabTextAppearance">@style/FennecTabs</item>
+        <item name="tabSelectedTextColor">#ffffff</item>
+    </style>
+
+    <style name="FennecTabs" parent="TextAppearance.Design.Tab">
+        <item name="android:textColor">#b4b6b8</item>
+    </style>
+
+</resources>
