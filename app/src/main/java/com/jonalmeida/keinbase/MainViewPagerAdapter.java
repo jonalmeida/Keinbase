@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
+    private static final String LOGTAG = MainViewPagerAdapter.class.getSimpleName();
+
     private final KeybaseSearchFragment mSearchFragment;
     private final String[] TITLES = { "Search", "Tracking", "Profile", "Fourth", "Fifth" };
 
@@ -52,16 +54,6 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
             Bundle args = getArguments();
             ((TextView) rootView.findViewById(R.id.pager_text))
                     .setText(Integer.toString(args.getInt(ARG_OBJECT)));
-            return rootView;
-        }
-    }
-
-    public static class KeybaseSearchFragment extends Fragment {
-        @Override
-        public View onCreateView(LayoutInflater inflater,
-                                 ViewGroup container, Bundle savedInstanceState) {
-            View rootView = inflater.inflate(
-                    R.layout.fragment_keybase_search, container, false);
             return rootView;
         }
     }
