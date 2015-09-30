@@ -18,7 +18,7 @@ public class KeybaseSearchFragment extends Fragment implements KeybaseSearchMana
     private static final String LOGTAG = KeybaseSearchFragment.class.getSimpleName();
 
     KeybaseSearchManager searchManager = new KeybaseSearchManager.Builder()
-            .url(KeybaseSearchManager.URL_USER_LOOKUP)
+            .urlType(KeybaseSearchManager.URL_USER_LOOKUP)
             .callback(this)
             .build();
 
@@ -47,7 +47,7 @@ public class KeybaseSearchFragment extends Fragment implements KeybaseSearchMana
                     public void run() {
                         Log.d(LOGTAG, "Running query now for string: " + editable.toString());
                         searchManager.execute(
-                                KeybaseSearchManager.USERNAME_SEARCH,
+                                KeybaseSearchManager.SEARCH_USERNAMES,
                                 editable.toString());
                     }
                 }, 1000);

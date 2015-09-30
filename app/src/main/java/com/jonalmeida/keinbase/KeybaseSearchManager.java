@@ -9,34 +9,39 @@ import com.squareup.okhttp.Request;
 
 import java.io.IOException;
 
-public class KeybaseSearchManager<T extends KeybaseSearchManager.Response> {
+public class KeybaseSearchManager {
 
     private static final String LOGTAG = KeybaseSearchManager.class.getSimpleName();
 
-    public static final int URL_USER_LOOKUP = 0;
-    public static final int URL_USER_DISCOVER = 1;
+    public static final int URL_USER_LOOKUP     = 0;
+    public static final int URL_USER_DISCOVER   = 1;
 
-    public static final int USERNAME_SEARCH = 0;
+    public static final int SEARCH_USERNAMES    = 0;
+    public static final int SEARCH_DOMAIN       = 1;
+    public static final int SEARCH_TWITTER      = 2;
+    public static final int SEARCH_GITHUB       = 3;
+    public static final int SEARCH_REDDIT       = 4;
+    public static final int SEARCH_HACKERNEWS   = 5;
+    public static final int SEARCH_COINBASE     = 6;
+    public static final int SEARCH_FINGERPRINT  = 7;
 
     private final OkHttpClient mClient;
-    private String mUrl;
-    private T mCallback;
+    private String mBaseUrl;
+    private Response mCallback;
 
-    private KeybaseSearchManager(@NonNull String url,
-                                 @NonNull T callback) {
+    private KeybaseSearchManager(int urlType, @NonNull Response callback) {
         mClient = new OkHttpClient();
-        mUrl = url;
         mCallback = callback;
+        mBaseUrl = getBaseUrl(urlType);
     }
 
-    public void execute(int searchType, String queryParam) {
-        if (searchType == USERNAME_SEARCH) {
-            mUrl += Constants.URL_ATTR_USERNAMES + "=" + queryParam;
-        }
+    public void execute(int searchType, String queryParams) {
+        final String searchUrl = setUrlParamValues(
+                getLookupUrl(searchType, mBaseUrl), queryParams);
         final Request request = new Request.Builder()
-                .url(mUrl)
+                .url(searchUrl)
                 .build();
-        Log.d(LOGTAG, "This is our query URL: " + mUrl);
+        Log.d(LOGTAG, "This is our query URL: " + searchUrl);
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
@@ -51,22 +56,22 @@ public class KeybaseSearchManager<T extends KeybaseSearchManager.Response> {
         });
     }
 
-    public static class Builder<P extends Response> {
-        private String url;
-        private P callback;
+    public static class Builder {
+        private int urlType;
+        private Response callback;
 
-        public Builder url(int urlId) {
-            this.url = getBaseUrl(urlId);
+        public Builder urlType(int urlId) {
+            this.urlType = urlId;
             return this;
         }
 
-        public Builder callback(P callback) {
+        public Builder callback(Response callback) {
             this.callback = callback;
             return this;
         }
 
         public KeybaseSearchManager build() {
-            return new KeybaseSearchManager(this.url, this.callback);
+            return new KeybaseSearchManager(this.urlType, this.callback);
         }
     }
 
@@ -80,6 +85,48 @@ public class KeybaseSearchManager<T extends KeybaseSearchManager.Response> {
             default:
                 return Constants.BASE_URL_USER_LOOKUP + "?" + Constants.URL_ATTR_USERNAMES + "=";
         }
+    }
+
+    private static String getLookupUrl(int lookup, String url) {
+        switch (lookup) {
+            case SEARCH_USERNAMES:
+                url += Constants.URL_ATTR_USERNAMES;
+                break;
+            case SEARCH_DOMAIN:
+                url += Constants.URL_ATTR_DOMAIN;
+                break;
+            case SEARCH_TWITTER:
+                url += Constants.URL_ATTR_TWITTER;
+                break;
+            case SEARCH_GITHUB:
+                url += Constants.URL_ATTR_GITHUB;
+                break;
+            case SEARCH_REDDIT:
+                url += Constants.URL_ATTR_REDDIT;
+                break;
+            case SEARCH_HACKERNEWS:
+                url += Constants.URL_ATTR_HACKERNEWS;
+                break;
+            case SEARCH_COINBASE:
+                url += Constants.URL_ATTR_COINBASE;
+                break;
+            case SEARCH_FINGERPRINT:
+                url += Constants.URL_ATTR_FINGERPRINT;
+                break;
+            default:
+                break;
+        }
+        url += "=";
+        return url;
+    }
+
+    private static String setUrlParamValues(String url, final String params) {
+        String[] split = params.split(",");
+        for(String param : split) {
+            url += param + ",";
+        }
+        // Remove trailing comma
+        return url.substring(0, url.length() - 1);
     }
 
     public interface Response {
