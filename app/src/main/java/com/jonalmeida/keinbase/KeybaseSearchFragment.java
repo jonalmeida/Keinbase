@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -56,8 +58,8 @@ public class KeybaseSearchFragment extends Fragment implements KeybaseSearchMana
     }
 
     @Override
-    public void onResponseReceived(String json) {
+    public void onResponseReceived(JsonNode json) {
         Log.d(LOGTAG, "We got a response from Keybase");
-        Log.d(LOGTAG, "Response: " + json);
+        //Log.d(LOGTAG, "Response: " + json.textValue());
     }
 }
