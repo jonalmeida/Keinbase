@@ -3,11 +3,19 @@ package com.jonalmeida.keinbase;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class KeybaseSearchManager {
 
@@ -26,13 +34,16 @@ public class KeybaseSearchManager {
     public static final int SEARCH_FINGERPRINT  = 7;
 
     private final OkHttpClient mClient;
-    private String mBaseUrl;
-    private Response mCallback;
+    private final String mBaseUrl;
+    private final Response mCallback;
+
+    private final ObjectMapper mObjectMapper;
 
     private KeybaseSearchManager(int urlType, @NonNull Response callback) {
         mClient = new OkHttpClient();
         mCallback = callback;
         mBaseUrl = getBaseUrl(urlType);
+        mObjectMapper = new ObjectMapper();
     }
 
     public void execute(int searchType, String queryParams) {
@@ -51,7 +62,22 @@ public class KeybaseSearchManager {
 
             @Override
             public void onResponse(com.squareup.okhttp.Response response) throws IOException {
-                mCallback.onResponseReceived(response.body().string());
+
+                String requestResponseBody = response.body().string();
+                JsonNode node = mObjectMapper.readTree(requestResponseBody);
+                JsonNode statusNode = node.get("status");
+                JsonNode name = statusNode.get("name");
+                Log.d(LOGTAG, "WE GOT A FUCKING STATUS! " + name.textValue());
+
+                JsonNode themNode = node.get("them");
+                List<User> users = mObjectMapper.readValue(
+                        themNode.traverse(),
+                        mObjectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
+                Log.d(LOGTAG, "Size of users: " + users.size());
+                Log.d(LOGTAG, "Trying to access first user: " + (users.isEmpty() ? "list is empty" : users.get(0).getId()));
+                Log.d(LOGTAG, "Picture url" + users.get(0).getPictures().getPrimaryUrl());
+
+                mCallback.onResponseReceived(requestResponseBody);
             }
         });
     }
@@ -121,7 +147,7 @@ public class KeybaseSearchManager {
     }
 
     private static String setUrlParamValues(String url, final String params) {
-        String[] split = params.split(",");
+        String[] split = params.split(" ");
         for(String param : split) {
             url += param + ",";
         }
