@@ -8,21 +8,21 @@ import java.util.Map;
 
 @JsonInclude(Include.NON_NULL)
 public class User {
-//    {
-//        "id":             "55c079bf5f1650fc1361a1c3a4709900",
-//        "basics":                     { },
-//        "invitation_stats":           { },
-//        "profile":                    null,
-//        "emails":                     { },
-//        "billing_and_quotas":         { }
-//        "public_keys":                { },
-//        "private_keys":               { },
-//        "proofs_summary":             { },
-//        "cryptocurrency_addresses":   { },
-//        "pictures":                   { },
-//        "sigs":                       { },
-//        "devices":                    { },
-//    }
+    //    {
+    //        "id":             "55c079bf5f1650fc1361a1c3a4709900",
+    //        "basics":                     { },
+    //        "invitation_stats":           { },
+    //        "profile":                    null,
+    //        "emails":                     { },
+    //        "billing_and_quotas":         { }
+    //        "public_keys":                { },
+    //        "private_keys":               { },
+    //        "proofs_summary":             { },
+    //        "cryptocurrency_addresses":   { },
+    //        "pictures":                   { },
+    //        "sigs":                       { },
+    //        "devices":                    { },
+    //    }
     private String id = "id";
     private Basics basics = new Basics();
     private Map<String, Object> invitation_stats = new LinkedHashMap<>();
