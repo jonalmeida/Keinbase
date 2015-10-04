@@ -63,7 +63,7 @@ public class KeybaseSearchManager {
                 Log.d(LOGTAG, "Size of users: " + userList.size());
                 Log.d(LOGTAG, "Trying to access first user: " + (userList.isEmpty() ? "list is " +
                         "empty" : userList.get(0).getId()));
-                Log.d(LOGTAG, "Picture url" + userList.get(0).getPictures().getPrimaryUrl());
+                Log.d(LOGTAG, "Picture url: " + userList.get(0).getPictures().getPrimaryUrl());
 
                 mCallback.onResponseReceived(node);
             }

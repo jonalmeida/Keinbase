@@ -6,4 +6,6 @@
 
     <string name="search_bar_hint">Search for a username..</string>
     <string name="card_user_photo"/>
+    <string name="placeholder_name">John Doe</string>
+    <string name="placeholder_bitcoin_hash">1Nwrzm3HiirdhuCwZoCpiv8bdziL3wZTyL</string>
 </resources>
