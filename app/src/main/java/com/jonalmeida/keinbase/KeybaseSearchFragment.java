@@ -42,6 +42,9 @@ public class KeybaseSearchFragment extends Fragment implements KeybaseSearchMana
 
             @Override
             public void afterTextChanged(final Editable editable) {
+                if (editable.length() == 0) {
+                    return;
+                }
                 timer.cancel();
                 timer = new Timer();
                 timer.schedule(new TimerTask() {

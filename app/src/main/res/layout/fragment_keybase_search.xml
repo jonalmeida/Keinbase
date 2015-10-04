@@ -22,13 +22,7 @@
             android:background="@android:color/transparent"
             android:hint="@string/search_bar_hint"/>
     </android.support.v7.widget.CardView>
-
-    <!--<RecyclerView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!-- -->
-    <!--</RecyclerView>-->
-
+    
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_search_results"
         android:layout_marginStart="20dp"
