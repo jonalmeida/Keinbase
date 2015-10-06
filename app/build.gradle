@@ -37,6 +37,7 @@ dependencies {
 
     // Third-party libraries
     compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 
     // Coinbase but re-imported manually
     //compile 'com.coinbase.android:coinbase-android-sdk:1.0.1'

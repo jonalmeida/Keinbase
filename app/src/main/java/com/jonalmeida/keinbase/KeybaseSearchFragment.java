@@ -2,6 +2,8 @@ package com.jonalmeida.keinbase;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -12,6 +14,9 @@ import android.widget.EditText;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +24,8 @@ import java.util.TimerTask;
 public class KeybaseSearchFragment extends Fragment implements KeybaseSearchManager.Response {
     private static final String LOGTAG = KeybaseSearchFragment.class.getSimpleName();
 
+    RecyclerView recyclerView;
+    KeybaseSearchAdapter adapter;
     KeybaseSearchManager searchManager = new KeybaseSearchManager.Builder()
             .urlType(KeybaseSearchManager.URL_USER_LOOKUP)
             .callback(this)
@@ -29,6 +36,10 @@ public class KeybaseSearchFragment extends Fragment implements KeybaseSearchMana
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_keybase_search, container, false);
         setSearchListener(rootView);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_search_results);
+        adapter = new KeybaseSearchAdapter(getActivity());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return rootView;
     }
 
@@ -64,5 +75,18 @@ public class KeybaseSearchFragment extends Fragment implements KeybaseSearchMana
     public void onResponseReceived(JsonNode json) {
         Log.d(LOGTAG, "We got a response from Keybase");
         //Log.d(LOGTAG, "Response: " + json.textValue());
+        adapter.emptyResults();
+        try {
+            final List<User> userList = JsonSerializer.instance().serializeUsersFromResponse(json);
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.setUserResults(userList);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
