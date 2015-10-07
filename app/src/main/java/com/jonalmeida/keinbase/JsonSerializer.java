@@ -37,16 +37,10 @@ public class JsonSerializer {
 
     public List<User> serializeUsersFromResponse(JsonNode node) throws IOException {
 
-        JsonNode statusNode = node.get("status");
-        JsonNode name = statusNode.get("name");
-
-        Log.d(LOGTAG, "WE GOT A FUCKING STATUS! " + name.textValue());
-
         JsonNode themNode = node.get("them");
         List<User> users = mObjectMapper.readValue(
                 themNode.traverse(),
                 mObjectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
-
 
         return users;
     }

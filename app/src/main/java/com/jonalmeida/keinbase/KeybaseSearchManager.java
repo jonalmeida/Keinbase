@@ -50,7 +50,6 @@ public class KeybaseSearchManager {
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
-                // Handle it here somehow?
                 // TODO: Change the background to show a network error graphic
                 Log.d(LOGTAG, "Network request failed: " + e.toString());
             }
@@ -58,12 +57,6 @@ public class KeybaseSearchManager {
             @Override
             public void onResponse(com.squareup.okhttp.Response response) throws IOException {
                 final JsonNode node = mSerializer.readTree(response.body().byteStream());
-                List<User> userList = mSerializer.serializeUsersFromResponse(node);
-
-                Log.d(LOGTAG, "Size of users: " + userList.size());
-                Log.d(LOGTAG, "Trying to access first user: " + (userList.isEmpty() ? "list is " +
-                        "empty" : userList.get(0).getId()));
-
                 mCallback.onResponseReceived(node);
             }
         });
