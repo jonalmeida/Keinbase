@@ -126,12 +126,12 @@ public class KeybaseSearchManager {
     }
 
     private static String setUrlParamValues(final String url, final String params) {
-        String[] tokens = params.split(" |,");
+        final String[] tokens = params.split("[\\W]+");
         String splitString = url;
         for(String param : tokens) {
             splitString += param + ",";
         }
-        // Remove trailing comma
+        // Remove trailing comma added
         return splitString.substring(0, splitString.length() - 1);
     }
 
