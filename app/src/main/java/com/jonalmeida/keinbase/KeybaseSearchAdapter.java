@@ -1,7 +1,8 @@
 package com.jonalmeida.keinbase;
 
 import android.content.Context;
-import android.support.annotation.UiThread;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,9 +21,11 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
 
     private List<User> mUserResults;
     private Context mContext;
+    private Handler mMainThread;
 
     public KeybaseSearchAdapter(Context context) {
         mUserResults = Collections.emptyList();
+        mMainThread = new Handler(Looper.getMainLooper());
         mContext = context;
     }
 
@@ -46,9 +49,14 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         mUserResults.clear();
     }
 
-    public void setUserResults(List<User> userList) {
-        mUserResults = userList;
-        notifyDataSetChanged();
+    public void setUserResults(final List<User> userList) {
+        mMainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                mUserResults = userList;
+                notifyDataSetChanged();
+            }
+        });
     }
 
     public static class SearchViewHolder extends RecyclerView.ViewHolder {
@@ -81,8 +89,6 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             }
             Map<String, String> bitcoinAddress = (Map<String, String>) bitcoinAddressess.get(0);
             return bitcoinAddress.get("address");
-//            String address = bitcoinAddress.get("address");
-//            return address != null ? address : "";
         }
 
         private void setProfileImage(User user) {

@@ -9,7 +9,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 
 import java.io.IOException;
-import java.util.List;
 
 public class KeybaseSearchManager {
 
@@ -33,14 +32,14 @@ public class KeybaseSearchManager {
 
     private final JsonSerializer mSerializer;
 
-    private KeybaseSearchManager(int urlType, @NonNull Response callback) {
+    private KeybaseSearchManager(final int urlType, @NonNull final Response callback) {
         mClient = new OkHttpClient();
         mCallback = callback;
         mBaseUrl = getBaseUrl(urlType);
         mSerializer = JsonSerializer.instance();
     }
 
-    public void execute(int searchType, String queryParams) {
+    public void execute(final int searchType, final String queryParams) {
         final String searchUrl = setUrlParamValues(
                 getLookupUrl(searchType, mBaseUrl), queryParams);
         final Request request = new Request.Builder()
@@ -82,7 +81,7 @@ public class KeybaseSearchManager {
     }
 
     @NonNull
-    private static String getBaseUrl(int lookup) {
+    private static String getBaseUrl(final int lookup) {
         switch (lookup) {
             case URL_USER_LOOKUP:
                 return Constants.BASE_URL_USER_LOOKUP;
@@ -93,7 +92,7 @@ public class KeybaseSearchManager {
         }
     }
 
-    private static String getLookupUrl(int lookup, String url) {
+    private static String getLookupUrl(final int lookup, String url) {
         switch (lookup) {
             case SEARCH_USERNAMES:
                 url += Constants.URL_ATTR_USERNAMES;
@@ -126,13 +125,14 @@ public class KeybaseSearchManager {
         return url;
     }
 
-    private static String setUrlParamValues(String url, final String params) {
-        String[] split = params.split(" |,");
-        for(String param : split) {
-            url += param + ",";
+    private static String setUrlParamValues(final String url, final String params) {
+        String[] tokens = params.split(" |,");
+        String splitString = url;
+        for(String param : tokens) {
+            splitString += param + ",";
         }
         // Remove trailing comma
-        return url.substring(0, url.length() - 1);
+        return splitString.substring(0, splitString.length() - 1);
     }
 
     public interface Response {

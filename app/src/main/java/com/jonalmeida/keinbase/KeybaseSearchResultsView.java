@@ -3,6 +3,7 @@ package com.jonalmeida.keinbase;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.AttributeSet;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -18,27 +19,28 @@ public class KeybaseSearchResultsView extends RecyclerView
     private final Context mContext;
 
     public KeybaseSearchResultsView(Context context) {
-        super(context);
+        this(context, null);
+    }
 
+    public KeybaseSearchResultsView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
+    public KeybaseSearchResultsView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         mAdapter = new KeybaseSearchAdapter(context);
         mContext = context;
         setLayoutManager(new LinearLayoutManager(context));
-        setAdapter(null);
+        setAdapter(mAdapter);
     }
 
     @Override
-    public void onResponseReceived(JsonNode json) {
+    public void onResponseReceived(final JsonNode json) {
         Log.d(LOGTAG, "We got a response from Keybase");
         mAdapter.emptyResults();
         try {
             final List<User> userList = JsonSerializer.instance().serializeUsersFromResponse(json);
-//            this.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-                    mAdapter.setUserResults(userList);
-                    mAdapter.notifyDataSetChanged();
-//                }
-//            });
+            mAdapter.setUserResults(userList);
         } catch (IOException e) {
             e.printStackTrace();
         }

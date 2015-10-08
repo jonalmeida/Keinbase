@@ -33,16 +33,14 @@ public class KeybaseSearchFragment extends Fragment {
         return rootView;
     }
 
-    private void setSearchListener(View rootView) {
+    private void setSearchListener(final View rootView) {
         EditText editText = (EditText) rootView.findViewById(R.id.edit_text_keybase_search);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
 
             private Timer timer = new Timer();
 
@@ -64,5 +62,13 @@ public class KeybaseSearchFragment extends Fragment {
                 }, 1000);
             }
         });
+    }
+
+    @Override
+    public void onDestroyView() {
+        mRecyclerView.setAdapter(null);
+        mRecyclerView = null;
+
+        mSearchManager = null;
     }
 }
