@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jonalmeida.keinbase.pojos.Bitcoin;
+import com.jonalmeida.keinbase.pojos.CryptoCurrency;
+import com.jonalmeida.keinbase.pojos.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;

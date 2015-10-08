@@ -1,4 +1,4 @@
-package com.jonalmeida.keinbase;
+package com.jonalmeida.keinbase.pojos;
 
 import java.util.HashMap;
 import java.util.Map;

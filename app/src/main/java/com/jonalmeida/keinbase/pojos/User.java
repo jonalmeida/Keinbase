@@ -1,9 +1,8 @@
-package com.jonalmeida.keinbase;
+package com.jonalmeida.keinbase.pojos;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @JsonInclude(Include.NON_NULL)

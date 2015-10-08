@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.jonalmeida.keinbase.pojos.User;
 
 import java.io.IOException;
 import java.util.List;

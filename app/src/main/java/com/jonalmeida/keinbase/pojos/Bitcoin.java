@@ -1,4 +1,4 @@
-package com.jonalmeida.keinbase;
+package com.jonalmeida.keinbase.pojos;
 
 public class Bitcoin {
     private String address;

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jonalmeida.keinbase.pojos.User;
 
 import java.io.IOException;
 import java.io.InputStream;
