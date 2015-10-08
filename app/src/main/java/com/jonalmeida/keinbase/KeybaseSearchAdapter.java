@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdapter.SearchViewHolder> {

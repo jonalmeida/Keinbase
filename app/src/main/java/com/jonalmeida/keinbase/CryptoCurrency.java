@@ -1,6 +1,5 @@
 package com.jonalmeida.keinbase;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class CryptoCurrency {
@@ -10,7 +9,7 @@ public class CryptoCurrency {
 //        "sig_id": "94263fd751aeee2b4d6f2a523cba9553994daad0c1fae433c0bee956f494f3b50f"
 //    }]
 //}
-    private List<Bitcoin> bitcoin = new LinkedList<>();
+    private List<Bitcoin> bitcoin;
 
     public List<Bitcoin> getBitcoin() {
         return bitcoin;

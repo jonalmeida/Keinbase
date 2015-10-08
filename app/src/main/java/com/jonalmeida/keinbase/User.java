@@ -23,19 +23,19 @@ public class User {
     //        "sigs":                       { },
     //        "devices":                    { },
     //    }
-    private String id = "id";
-    private Basics basics = new Basics();
-    private Map<String, Object> invitation_stats = new LinkedHashMap<>();
-    private Profile profile = new Profile();
-    private Map<String, Object> emails = new LinkedHashMap<>();
-    private Map<String, Object> billing_and_quotes = new LinkedHashMap<>();
-    private Map<String, Object> public_keys = new LinkedHashMap<>();
-    private Map<String, Object> private_keys = new LinkedHashMap<>();
-    private Map<String, Object> proofs_summary = new LinkedHashMap<>();
-    private CryptoCurrency cryptocurrency_addresses = new CryptoCurrency();
-    private Pictures pictures = new Pictures();
-    private Map<String, Object> sigs = new LinkedHashMap<>();
-    private Map<String, Object> devices = new LinkedHashMap<>();
+    private String id;
+    private Basics basics;
+    private Map<String, Object> invitation_stats;
+    private Profile profile;
+    private Map<String, Object> emails;
+    private Map<String, Object> billing_and_quotes;
+    private Map<String, Object> public_keys;
+    private Map<String, Object> private_keys;
+    private Map<String, Object> proofs_summary;
+    private CryptoCurrency cryptocurrency_addresses;
+    private Pictures pictures;
+    private Map<String, Object> sigs;
+    private Map<String, Object> devices;
 
     public static final String ID                       = "id";
     public static final String BASICS                   = "basics";
