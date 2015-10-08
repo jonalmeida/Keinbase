@@ -3,6 +3,7 @@ package com.jonalmeida.keinbase;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,8 +15,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdapter.SearchViewHolder> {
 
@@ -75,20 +76,28 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             mProfileImageView = (ImageView) itemView.findViewById(R.id.iv_user_photo);
         }
 
-        public void bindItem(User user) {
+        public void bindItem(final User user) {
             mNameTextView.setText(user.getBasics().getUsername());
-            mNameTextView.setText((String) user.getProfile().get("full_name"));
-            mCoinbaseTextView.setText(getCoinbaseHash(user));
+            mNameTextView.setText(user.getProfile().getFull_name());
             setProfileImage(user);
+            final String bitcoinHash = getCoinbaseHash(user);
+            if (bitcoinHash != null) {
+                mCoinbaseTextView.setText(bitcoinHash);
+            }
         }
 
-        private String getCoinbaseHash(User user) {
-            List<Object> bitcoinAddressess = (List<Object>) user.getCryptocurrency_addresses().get("bitcoin");
-            if (bitcoinAddressess == null) {
-                return "";
+        private @Nullable String getCoinbaseHash(final User user) {
+            CryptoCurrency cryptoCurrency = user.getCryptocurrency_addresses();
+            if (cryptoCurrency == null) {
+                return null;
             }
-            Map<String, String> bitcoinAddress = (Map<String, String>) bitcoinAddressess.get(0);
-            return bitcoinAddress.get("address");
+            List<Bitcoin> addresses = cryptoCurrency.getBitcoin();
+            if (addresses.size() == 0) {
+                return null;
+            }
+
+            // Return the first address we find.
+            return addresses.get(0).getAddress();
         }
 
         private void setProfileImage(User user) {

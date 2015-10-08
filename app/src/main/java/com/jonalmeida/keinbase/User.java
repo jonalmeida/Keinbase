@@ -26,16 +26,31 @@ public class User {
     private String id = "id";
     private Basics basics = new Basics();
     private Map<String, Object> invitation_stats = new LinkedHashMap<>();
-    private Map<String, Object> profile = new LinkedHashMap<>();
+    private Profile profile = new Profile();
     private Map<String, Object> emails = new LinkedHashMap<>();
     private Map<String, Object> billing_and_quotes = new LinkedHashMap<>();
     private Map<String, Object> public_keys = new LinkedHashMap<>();
     private Map<String, Object> private_keys = new LinkedHashMap<>();
     private Map<String, Object> proofs_summary = new LinkedHashMap<>();
-    private Map<String, Object> cryptocurrency_addresses = new LinkedHashMap<>();
+    private CryptoCurrency cryptocurrency_addresses = new CryptoCurrency();
     private Pictures pictures = new Pictures();
     private Map<String, Object> sigs = new LinkedHashMap<>();
     private Map<String, Object> devices = new LinkedHashMap<>();
+
+    public static final String ID                       = "id";
+    public static final String BASICS                   = "basics";
+    public static final String INVITATION_STATS         = "invitation_stats";
+    public static final String PROFILE                  = "profile";
+    public static final String EMAILS                   = "emails";
+    public static final String BILLING_AND_QUOTES       = "billing_and_quotes";
+    public static final String PUBLIC_KEYS              = "public_keys";
+    public static final String PRIVATE_KEYS             = "private_keys";
+    public static final String PROOFS_SUMMARY           = "proofs_summary";
+    public static final String CRYPTOCURRENCY_ADDRESSES = "cryptocurrency_addresses";
+    public static final String PICTURES                 = "pictures";
+    public static final String SIGS                     = "sigs";
+    public static final String DEVICES                  = "devices";
+
 
     public Map<String, Object> getInvitation_stats() {
         return invitation_stats;
@@ -43,14 +58,6 @@ public class User {
 
     public void setInvitation_stats(Map<String, Object> invitation_stats) {
         this.invitation_stats = invitation_stats;
-    }
-
-    public Map<String, Object> getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Map<String, Object> profile) {
-        this.profile = profile;
     }
 
     public Map<String, Object> getEmails() {
@@ -93,14 +100,6 @@ public class User {
         this.proofs_summary = proofs_summary;
     }
 
-    public Map<String, Object> getCryptocurrency_addresses() {
-        return cryptocurrency_addresses;
-    }
-
-    public void setCryptocurrency_addresses(Map<String, Object> cryptocurrency_addresses) {
-        this.cryptocurrency_addresses = cryptocurrency_addresses;
-    }
-
     public Map<String, Object> getSigs() {
         return sigs;
     }
@@ -139,5 +138,21 @@ public class User {
 
     public void setPictures(Pictures pictures) {
         this.pictures = pictures;
+    }
+
+    public CryptoCurrency getCryptocurrency_addresses() {
+        return cryptocurrency_addresses;
+    }
+
+    public void setCryptocurrency_addresses(CryptoCurrency cryptocurrency_addresses) {
+        this.cryptocurrency_addresses = cryptocurrency_addresses;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }
