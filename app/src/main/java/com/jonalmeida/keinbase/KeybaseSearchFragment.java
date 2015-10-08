@@ -64,11 +64,11 @@ public class KeybaseSearchFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onDestroyView() {
-        mRecyclerView.setAdapter(null);
-        mRecyclerView = null;
-
-        mSearchManager = null;
-    }
+//    @Override
+//    public void onDestroyView() {
+//        mRecyclerView.setAdapter(null);
+//        mRecyclerView = null;
+//
+//        mSearchManager = null;
+//    }
 }
