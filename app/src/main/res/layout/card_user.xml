@@ -40,8 +40,9 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_user_name"
             android:layout_toEndOf="@+id/iv_user_photo"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_alignBottom="@+id/tv_user_coinbase"
             android:maxWidth="16dp"
             android:maxHeight="16dp"
             android:src="@drawable/bitcoin"
@@ -54,9 +55,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_user_name"
             android:layout_toEndOf="@+id/iv_bitcoin_icon"
-            android:layout_alignBottom="@+id/iv_bitcoin_icon"
             android:text="@string/placeholder_bitcoin_hash"
-            android:textSize="12sp"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:scrollHorizontally="true"
             android:id="@+id/tv_user_coinbase"/>
 
     </RelativeLayout>
