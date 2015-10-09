@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.jonalmeida.keinbase.pojos.Bitcoin;
 import com.jonalmeida.keinbase.pojos.Completion;
+import com.jonalmeida.keinbase.pojos.Components;
 import com.jonalmeida.keinbase.pojos.CryptoCurrency;
 import com.jonalmeida.keinbase.pojos.User;
 import com.squareup.picasso.Picasso;
@@ -151,11 +152,15 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
     public static class SearchAutocompleteViewHolder extends SearchViewHolder {
         private final ImageView mThumbnail;
         private final ImageView mBitcoinIcon;
+        private final ImageView mGithubIcon;
+        private final ImageView mHackerNewsIcon;
 
         public SearchAutocompleteViewHolder(View itemView) {
             super(itemView);
             mThumbnail = (ImageView) itemView.findViewById(R.id.iv_user_photo);
             mBitcoinIcon = (ImageView) itemView.findViewById(R.id.iv_bitcoin_icon);
+            mGithubIcon = (ImageView) itemView.findViewById(R.id.iv_github_icon);
+            mHackerNewsIcon = (ImageView) itemView.findViewById(R.id.iv_hn_icon);
         }
 
         public void bindItem(final Completion completion) {
@@ -166,6 +171,14 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             final Map<String, String> coinbase = (Map<String, String>) completion.getComponents().get(Constants.SOCIAL_COINBASE);
             if (coinbase != null) {
                 mBitcoinIcon.setVisibility(View.VISIBLE);
+            }
+            final Map<String, String> github = (Map<String, String>) completion.getComponents().get(Constants.SOCIAL_GITHUB);
+            if (github != null) {
+                mGithubIcon.setVisibility(View.VISIBLE);
+            }
+            final Map<String, String> hn = (Map<String, String>) completion.getComponents().get(Constants.SOCIAL_HACKERNEWS);
+            if (hn != null) {
+                mHackerNewsIcon.setVisibility(View.VISIBLE);
             }
         }
 

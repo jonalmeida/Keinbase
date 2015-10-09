@@ -37,19 +37,53 @@
             android:textSize="20sp"
             android:id="@+id/tv_user_name"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_user_name"
+            android:layout_toEndOf="@+id/iv_user_photo"
+            android:orientation="horizontal">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/iv_user_photo"
-            android:layout_below="@+id/tv_user_name"
-            android:layout_alignBottom="@+id/tv_user_coinbase"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:maxWidth="16dp"
             android:maxHeight="16dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:src="@drawable/bitcoin"
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription"
             android:id="@+id/iv_bitcoin_icon"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxWidth="16dp"
+            android:maxHeight="16dp"
+            android:visibility="gone"
+            android:src="@drawable/github"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription"
+            android:id="@+id/iv_github_icon"
+            android:layout_marginEnd="10dp"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxWidth="16dp"
+            android:maxHeight="16dp"
+            android:visibility="gone"
+            android:src="@drawable/hackernews"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription"
+            android:id="@+id/iv_hn_icon"/>
+
+
+        </LinearLayout>
 
     </RelativeLayout>
 
