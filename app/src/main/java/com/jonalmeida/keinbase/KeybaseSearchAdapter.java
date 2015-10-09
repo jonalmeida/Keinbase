@@ -150,16 +150,23 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
 
     public static class SearchAutocompleteViewHolder extends SearchViewHolder {
         private final ImageView mThumbnail;
+        private final ImageView mBitcoinIcon;
 
         public SearchAutocompleteViewHolder(View itemView) {
             super(itemView);
             mThumbnail = (ImageView) itemView.findViewById(R.id.iv_user_photo);
+            mBitcoinIcon = (ImageView) itemView.findViewById(R.id.iv_bitcoin_icon);
         }
 
         public void bindItem(final Completion completion) {
             final String name = ((Map<String, String>)completion.getComponents().get(Constants.SOCIAL_USERNAME)).get("val");
             nameTextView.setText(name);
+            mThumbnail.setImageResource(R.drawable.placeholder_avatar);
             setThumbnailImage(completion);
+            final Map<String, String> coinbase = (Map<String, String>) completion.getComponents().get(Constants.SOCIAL_COINBASE);
+            if (coinbase != null) {
+                mBitcoinIcon.setVisibility(View.VISIBLE);
+            }
         }
 
         private void setThumbnailImage(final Completion completion) {
