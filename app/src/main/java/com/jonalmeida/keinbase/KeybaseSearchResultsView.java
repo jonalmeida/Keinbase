@@ -1,6 +1,8 @@
 package com.jonalmeida.keinbase;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -8,7 +10,6 @@ import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jonalmeida.keinbase.pojos.Completion;
-import com.jonalmeida.keinbase.pojos.User;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +20,7 @@ public class KeybaseSearchResultsView extends RecyclerView
 
     private final KeybaseSearchAdapter mAdapter;
     private final Context mContext;
+    private final Handler mMainThread;
 
     public KeybaseSearchResultsView(Context context) {
         this(context, null);
@@ -32,6 +34,7 @@ public class KeybaseSearchResultsView extends RecyclerView
         super(context, attrs, defStyle);
         mAdapter = new KeybaseSearchAdapter(context);
         mContext = context;
+        mMainThread = new Handler(Looper.getMainLooper());
         setLayoutManager(new LinearLayoutManager(context));
         setAdapter(mAdapter);
     }
@@ -50,6 +53,12 @@ public class KeybaseSearchResultsView extends RecyclerView
 
         try {
             final List<Completion> completionList = JsonSerializer.instance().serializeCompletionsFromResponse(json);
+            mMainThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    smoothScrollToPosition(0);
+                }
+            });
             mAdapter.setUserCompletions(completionList);
         } catch (IOException e) {
             Log.e(LOGTAG, "Serializing autocomplete list failed.");
