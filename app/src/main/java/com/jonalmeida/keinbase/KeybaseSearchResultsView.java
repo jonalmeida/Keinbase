@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.jonalmeida.keinbase.pojos.Completion;
 import com.jonalmeida.keinbase.pojos.User;
 
 import java.io.IOException;
@@ -39,10 +40,19 @@ public class KeybaseSearchResultsView extends RecyclerView
     public void onResponseReceived(final JsonNode json) {
         Log.d(LOGTAG, "We got a response from Keybase");
         mAdapter.emptyResults();
+//        try {
+//            final List<User> userList = JsonSerializer.instance().serializeUsersFromResponse(json);
+//            mAdapter.setUserResults(userList);
+//        } catch (IOException e) {
+//            Log.e(LOGTAG, "Serializing user list failed.");
+//            e.printStackTrace();
+//        }
+
         try {
-            final List<User> userList = JsonSerializer.instance().serializeUsersFromResponse(json);
-            mAdapter.setUserResults(userList);
+            final List<Completion> completionList = JsonSerializer.instance().serializeCompletionsFromResponse(json);
+            mAdapter.setUserCompletions(completionList);
         } catch (IOException e) {
+            Log.e(LOGTAG, "Serializing autocomplete list failed.");
             e.printStackTrace();
         }
     }

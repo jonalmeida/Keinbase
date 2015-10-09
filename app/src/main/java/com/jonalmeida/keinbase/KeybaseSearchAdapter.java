@@ -13,43 +13,72 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jonalmeida.keinbase.pojos.Bitcoin;
+import com.jonalmeida.keinbase.pojos.Completion;
 import com.jonalmeida.keinbase.pojos.CryptoCurrency;
 import com.jonalmeida.keinbase.pojos.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdapter.SearchViewHolder> {
 
     private List<User> mUserResults;
+    private List<Completion> mUserCompletions;
     private Context mContext;
     private Handler mMainThread;
 
+    private static final int VIEW_TYPE_USER = 0;
+    private static final int VIEW_TYPE_AUTOCOMPLETE = 1;
+
     public KeybaseSearchAdapter(Context context) {
         mUserResults = Collections.emptyList();
+        mUserCompletions = Collections.emptyList();
         mMainThread = new Handler(Looper.getMainLooper());
         mContext = context;
     }
 
     @Override
     public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.card_user, parent, false);
-        return new SearchViewHolder(v);
+        switch (viewType) {
+            case VIEW_TYPE_USER:
+                View v1 = LayoutInflater.from(mContext).inflate(R.layout.card_user, parent, false);
+                return new SearchUserViewHolder(v1);
+            case VIEW_TYPE_AUTOCOMPLETE:
+                View v2 = LayoutInflater.from(mContext).inflate(R.layout.card_user_autocomplete, parent, false);
+                return new SearchAutocompleteViewHolder(v2);
+            default:
+                throw new IllegalArgumentException("Unknown viewType: " + viewType);
+        }
     }
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position) {
-        holder.bindItem(mUserResults.get(position));
+        if (!mUserResults.isEmpty()) {
+            ((SearchUserViewHolder) holder).bindItem(mUserResults.get(position));
+        } else {
+            ((SearchAutocompleteViewHolder) holder).bindItem(mUserCompletions.get(position));
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return !mUserResults.isEmpty() ? VIEW_TYPE_USER : VIEW_TYPE_AUTOCOMPLETE;
     }
 
     @Override
     public int getItemCount() {
-        return mUserResults.size();
+        //return mUserResults != null ? mUserResults.size() : mUserCompletions.size();
+        return mUserCompletions.size();
     }
 
     public void emptyResults() {
-        mUserResults.clear();
+        if (!mUserResults.isEmpty()) {
+            mUserResults.clear();
+        } else {
+            mUserCompletions.clear();
+        }
     }
 
     public void setUserResults(final List<User> userList) {
@@ -62,30 +91,38 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         });
     }
 
-    public static class SearchViewHolder extends RecyclerView.ViewHolder {
-        private final CardView mCardView;
-        private final TextView mNameTextView;
+    public void setUserCompletions(final List<Completion> completions) {
+        mMainThread.post(new Runnable() {
+            @Override
+            public void run() {
+                mUserCompletions = completions;
+                notifyDataSetChanged();
+            }
+        });
+    }
+
+    public static class SearchUserViewHolder extends SearchViewHolder {
         private final TextView mCoinbaseTextView;
         private final ImageView mProfileImageView;
-        private final View mItemView;
 
-        public SearchViewHolder(View itemView) {
+        public SearchUserViewHolder(View itemView) {
             super(itemView);
-            mItemView = itemView;
-            mCardView = (CardView) itemView.findViewById(R.id.card_user_info);
-            mNameTextView = (TextView) itemView.findViewById(R.id.tv_user_name);
             mCoinbaseTextView = (TextView) itemView.findViewById(R.id.tv_user_coinbase);
             mProfileImageView = (ImageView) itemView.findViewById(R.id.iv_user_photo);
         }
 
         public void bindItem(final User user) {
-            mNameTextView.setText(user.getBasics().getUsername());
-            mNameTextView.setText(user.getProfile().getFull_name());
-            setProfileImage(user);
+            String username = user.getBasics().getUsername();
+            if (user.getProfile().getFull_name() != null) {
+                username = user.getProfile().getFull_name();
+            }
+            nameTextView.setText(username);
+
             final String bitcoinHash = getCoinbaseHash(user);
             if (bitcoinHash != null) {
                 mCoinbaseTextView.setText(bitcoinHash);
             }
+            setProfileImage(user);
         }
 
         private @Nullable String getCoinbaseHash(final User user) {
@@ -107,7 +144,41 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             if (imageUrl == null || imageUrl.length() == 0) {
                 return;
             }
-            Picasso.with(mItemView.getContext()).load(imageUrl).into(mProfileImageView);
+            Picasso.with(itemView.getContext()).load(imageUrl).into(mProfileImageView);
+        }
+    }
+
+    public static class SearchAutocompleteViewHolder extends SearchViewHolder {
+        private final ImageView mThumbnail;
+
+        public SearchAutocompleteViewHolder(View itemView) {
+            super(itemView);
+            mThumbnail = (ImageView) itemView.findViewById(R.id.iv_user_photo);
+        }
+
+        public void bindItem(final Completion completion) {
+            final String name = ((Map<String, String>)completion.getComponents().get(Constants.SOCIAL_USERNAME)).get("val");
+            nameTextView.setText(name);
+            setThumbnailImage(completion);
+        }
+
+        private void setThumbnailImage(final Completion completion) {
+            String imageUrl = completion.getThumbnail();
+            if (imageUrl == null || imageUrl.length() == 0) {
+                return;
+            }
+            Picasso.with(itemView.getContext()).load(imageUrl).into(mThumbnail);
+        }
+    }
+
+    public static class SearchViewHolder extends RecyclerView.ViewHolder {
+        protected final CardView cardView;
+        protected final TextView nameTextView;
+
+        public SearchViewHolder(View itemView) {
+            super(itemView);
+            cardView = (CardView) itemView.findViewById(R.id.card_user_info);
+            nameTextView = (TextView) itemView.findViewById(R.id.tv_user_name);
         }
     }
 }

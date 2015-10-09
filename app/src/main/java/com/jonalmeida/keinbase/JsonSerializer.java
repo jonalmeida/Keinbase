@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jonalmeida.keinbase.pojos.Completion;
 import com.jonalmeida.keinbase.pojos.User;
 
 import java.io.IOException;
@@ -37,12 +38,18 @@ public class JsonSerializer {
     }
 
     public List<User> serializeUsersFromResponse(JsonNode node) throws IOException {
-
         JsonNode themNode = node.get("them");
         List<User> users = mObjectMapper.readValue(
                 themNode.traverse(),
                 mObjectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
-
         return users;
+    }
+
+    public List<Completion> serializeCompletionsFromResponse(JsonNode node) throws IOException {
+        JsonNode completionNode = node.get("completions");
+        List<Completion> completions = mObjectMapper.readValue(
+                completionNode.traverse(),
+                mObjectMapper.getTypeFactory().constructCollectionType(List.class, Completion.class));
+        return completions;
     }
 }

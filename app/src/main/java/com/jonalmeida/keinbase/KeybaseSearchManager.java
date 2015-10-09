@@ -16,6 +16,7 @@ public class KeybaseSearchManager {
 
     public static final int URL_USER_LOOKUP     = 0;
     public static final int URL_USER_DISCOVER   = 1;
+    public static final int URL_AUTOCOMPLETE    = 2;
 
     public static final int SEARCH_USERNAMES    = 0;
     public static final int SEARCH_DOMAIN       = 1;
@@ -40,8 +41,9 @@ public class KeybaseSearchManager {
     }
 
     public void execute(final int searchType, final String queryParams) {
-        final String searchUrl = setUrlParamValues(
-                getLookupUrl(searchType, mBaseUrl), queryParams);
+//        final String searchUrl = setUrlParamValues(
+//                getLookupUrl(searchType, mBaseUrl), queryParams);
+        final String searchUrl = setUrlParamValues(mBaseUrl, queryParams);
         final Request request = new Request.Builder()
                 .url(searchUrl)
                 .build();
@@ -87,6 +89,8 @@ public class KeybaseSearchManager {
                 return Constants.BASE_URL_USER_LOOKUP;
             case URL_USER_DISCOVER:
                 return Constants.BASE_URL_USER_DISCOVER;
+            case URL_AUTOCOMPLETE:
+                return Constants.BASE_URL_AUTOCOMPLETE;
             default:
                 return Constants.BASE_URL_USER_LOOKUP + "?" + Constants.URL_ATTR_USERNAMES + "=";
         }
@@ -119,6 +123,7 @@ public class KeybaseSearchManager {
                 url += Constants.URL_ATTR_FINGERPRINT;
                 break;
             default:
+                url += Constants.URL_ATTR_Q;
                 break;
         }
         url += "=";

@@ -27,7 +27,7 @@ public class KeybaseSearchFragment extends Fragment {
         setSearchListener(rootView);
         mRecyclerView = (KeybaseSearchResultsView) rootView.findViewById(R.id.rv_search_results);
         mSearchManager = new KeybaseSearchManager.Builder()
-                .urlType(KeybaseSearchManager.URL_USER_LOOKUP)
+                .urlType(KeybaseSearchManager.URL_AUTOCOMPLETE)
                 .callback(mRecyclerView)
                 .build();
         return rootView;
@@ -55,8 +55,10 @@ public class KeybaseSearchFragment extends Fragment {
                     @Override
                     public void run() {
                         Log.d(LOGTAG, "Running query now for string: " + editable.toString());
-                        mSearchManager.execute(
-                                KeybaseSearchManager.SEARCH_USERNAMES,
+//                        mSearchManager.execute(
+//                                KeybaseSearchManager.SEARCH_USERNAMES,
+//                                editable.toString());
+                        mSearchManager.execute(KeybaseSearchManager.URL_AUTOCOMPLETE,
                                 editable.toString());
                     }
                 }, 1000);
