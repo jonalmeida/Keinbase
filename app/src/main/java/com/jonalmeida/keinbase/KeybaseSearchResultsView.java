@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.jonalmeida.keinbase.pojos.Completion;
@@ -15,7 +16,8 @@ import java.io.IOException;
 import java.util.List;
 
 public class KeybaseSearchResultsView extends RecyclerView
-        implements KeybaseSearchManager.Response {
+        implements KeybaseSearchManager.Response,
+                   ItemClickSupport.OnItemClickListener {
     private static final String LOGTAG = KeybaseSearchResultsView.class.getSimpleName();
 
     private final KeybaseSearchAdapter mAdapter;
@@ -37,6 +39,7 @@ public class KeybaseSearchResultsView extends RecyclerView
         mMainThread = new Handler(Looper.getMainLooper());
         setLayoutManager(new LinearLayoutManager(context));
         setAdapter(mAdapter);
+        ItemClickSupport.addTo(this).setOnItemClickListener(this);
     }
 
     @Override
@@ -64,5 +67,10 @@ public class KeybaseSearchResultsView extends RecyclerView
             Log.e(LOGTAG, "Serializing autocomplete list failed.");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+
     }
 }
