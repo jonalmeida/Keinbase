@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.jonalmeida.keinbase.pojos.Bitcoin;
 import com.jonalmeida.keinbase.pojos.Completion;
+import com.jonalmeida.keinbase.pojos.Component;
 import com.jonalmeida.keinbase.pojos.Components;
 import com.jonalmeida.keinbase.pojos.CryptoCurrency;
 import com.jonalmeida.keinbase.pojos.User;
@@ -164,8 +165,8 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         }
 
         public void bindItem(final Completion completion) {
-            final Map<String, Object> components = completion.getComponents();
-            final String name = ((Map<String, String>)components.get(Constants.SOCIAL_USERNAME)).get(Components.VAL);
+            final Components components = completion.getComponents();
+            final String name = components.getFull_name().getVal();
             nameTextView.setText(name);
             setThumbnailImage(completion);
             setSocialIcons(components);
@@ -179,16 +180,16 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             Picasso.with(itemView.getContext()).load(imageUrl).into(mThumbnail);
         }
 
-        private void setSocialIcons(final Map<String, Object> components) {
-            final Map<String, String> coinbase = (Map<String, String>) components.get(Constants.SOCIAL_COINBASE);
+        private void setSocialIcons(final Components components) {
+            final Component coinbase = components.getCoinbase();
             if (coinbase != null) {
                 mBitcoinIcon.setVisibility(View.VISIBLE);
             }
-            final Map<String, String> github = (Map<String, String>) components.get(Constants.SOCIAL_GITHUB);
+            final Component github = components.getGithub();
             if (github != null) {
                 mGithubIcon.setVisibility(View.VISIBLE);
             }
-            final Map<String, String> hn = (Map<String, String>) components.get(Constants.SOCIAL_HACKERNEWS);
+            final Component hn = components.getHackernews();
             if (hn != null) {
                 mHackerNewsIcon.setVisibility(View.VISIBLE);
             }

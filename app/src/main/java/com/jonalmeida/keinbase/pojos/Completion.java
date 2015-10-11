@@ -35,7 +35,7 @@ public class Completion {
 //    "is_followee": false
 //}
     private float total_score;
-    private Map<String, Object> components;
+    private Components components;
     private String uid;
     private String thumbnail;
     private boolean is_followee;
@@ -54,11 +54,11 @@ public class Completion {
         this.total_score = total_score;
     }
 
-//    public Map<String, Components> getComponents() {
+//    public Map<String, Component> getComponents() {
 //        return components;
 //    }
 //
-//    public void setComponents(Map<String, Components> components) {
+//    public void setComponents(Map<String, Component> components) {
 //        this.components = components;
 //    }
 
@@ -86,11 +86,11 @@ public class Completion {
         this.is_followee = is_followee;
     }
 
-    public Map<String, Object> getComponents() {
+    public Components getComponents() {
         return components;
     }
 
-    public void setComponents(Map<String, Object> components) {
+    public void setComponents(Components components) {
         this.components = components;
     }
 }
