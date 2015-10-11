@@ -164,22 +164,11 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         }
 
         public void bindItem(final Completion completion) {
-            final String name = ((Map<String, String>)completion.getComponents().get(Constants.SOCIAL_USERNAME)).get("val");
+            final Map<String, Object> components = completion.getComponents();
+            final String name = ((Map<String, String>)components.get(Constants.SOCIAL_USERNAME)).get(Components.VAL);
             nameTextView.setText(name);
-            mThumbnail.setImageResource(R.drawable.placeholder_avatar);
             setThumbnailImage(completion);
-            final Map<String, String> coinbase = (Map<String, String>) completion.getComponents().get(Constants.SOCIAL_COINBASE);
-            if (coinbase != null) {
-                mBitcoinIcon.setVisibility(View.VISIBLE);
-            }
-            final Map<String, String> github = (Map<String, String>) completion.getComponents().get(Constants.SOCIAL_GITHUB);
-            if (github != null) {
-                mGithubIcon.setVisibility(View.VISIBLE);
-            }
-            final Map<String, String> hn = (Map<String, String>) completion.getComponents().get(Constants.SOCIAL_HACKERNEWS);
-            if (hn != null) {
-                mHackerNewsIcon.setVisibility(View.VISIBLE);
-            }
+            setSocialIcons(components);
         }
 
         private void setThumbnailImage(final Completion completion) {
@@ -188,6 +177,21 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
                 return;
             }
             Picasso.with(itemView.getContext()).load(imageUrl).into(mThumbnail);
+        }
+
+        private void setSocialIcons(final Map<String, Object> components) {
+            final Map<String, String> coinbase = (Map<String, String>) components.get(Constants.SOCIAL_COINBASE);
+            if (coinbase != null) {
+                mBitcoinIcon.setVisibility(View.VISIBLE);
+            }
+            final Map<String, String> github = (Map<String, String>) components.get(Constants.SOCIAL_GITHUB);
+            if (github != null) {
+                mGithubIcon.setVisibility(View.VISIBLE);
+            }
+            final Map<String, String> hn = (Map<String, String>) components.get(Constants.SOCIAL_HACKERNEWS);
+            if (hn != null) {
+                mHackerNewsIcon.setVisibility(View.VISIBLE);
+            }
         }
     }
 

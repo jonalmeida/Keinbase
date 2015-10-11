@@ -8,6 +8,9 @@ public class Components {
     private String val;
     private float score;
 
+    public static final String VAL = "val";
+    public static final String SCORE = "score";
+
     public String getVal() {
         return val;
     }
