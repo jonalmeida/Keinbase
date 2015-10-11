@@ -166,7 +166,7 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
 
         public void bindItem(final Completion completion) {
             final Components components = completion.getComponents();
-            final String name = components.getFull_name().getVal();
+            final String name = components.getUsername().getVal();
             nameTextView.setText(name);
             setThumbnailImage(completion);
             setSocialIcons(components);
@@ -177,7 +177,10 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             if (imageUrl == null || imageUrl.length() == 0) {
                 return;
             }
-            Picasso.with(itemView.getContext()).load(imageUrl).into(mThumbnail);
+            Picasso.with(itemView.getContext())
+                    .load(imageUrl)
+                    .placeholder(R.drawable.placeholder_avatar)
+                    .into(mThumbnail);
         }
 
         private void setSocialIcons(final Components components) {
