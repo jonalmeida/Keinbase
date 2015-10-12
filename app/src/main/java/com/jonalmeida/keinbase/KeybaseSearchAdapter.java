@@ -151,6 +151,7 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
     }
 
     public static class SearchAutocompleteViewHolder extends SearchViewHolder {
+        private final TextView mUsernameTextView;
         private final ImageView mThumbnail;
         private final ImageView mBitcoinIcon;
         private final ImageView mGithubIcon;
@@ -161,6 +162,7 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
 
         public SearchAutocompleteViewHolder(View itemView) {
             super(itemView);
+            mUsernameTextView = (TextView) itemView.findViewById(R.id.tv_user_name);
             mThumbnail = (ImageView) itemView.findViewById(R.id.iv_user_photo);
             mBitcoinIcon = (ImageView) itemView.findViewById(R.id.iv_bitcoin_icon);
             mGithubIcon = (ImageView) itemView.findViewById(R.id.iv_github_icon);
@@ -180,6 +182,7 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         private void setThumbnailImage(final Completion completion) {
             String imageUrl = completion.getThumbnail();
             if (imageUrl == null || imageUrl.length() == 0) {
+                mThumbnail.setImageResource(R.drawable.placeholder_avatar);
                 return;
             }
             Picasso.with(itemView.getContext())
@@ -192,26 +195,38 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             final Component coinbase = components.getCoinbase();
             if (coinbase != null) {
                 mBitcoinIcon.setVisibility(View.VISIBLE);
+            } else  {
+                mBitcoinIcon.setVisibility(View.GONE);
             }
             final Component github = components.getGithub();
             if (github != null) {
                 mGithubIcon.setVisibility(View.VISIBLE);
+            } else {
+                mGithubIcon.setVisibility(View.GONE);
             }
             final Component hn = components.getHackernews();
             if (hn != null) {
                 mHackerNewsIcon.setVisibility(View.VISIBLE);
+            } else {
+                mHackerNewsIcon.setVisibility(View.GONE);
             }
             final Component reddit = components.getReddit();
             if (reddit != null) {
                 mRedditIcon.setVisibility(View.VISIBLE);
+            } else {
+                mRedditIcon.setVisibility(View.GONE);
             }
             final Component twitter = components.getTwitter();
             if (twitter != null) {
                 mTwitterIcon.setVisibility(View.VISIBLE);
+            } else {
+                mTwitterIcon.setVisibility(View.GONE);
             }
             final List<WebsiteComponent> websites = components.getWebsites();
             if (websites != null) {
                 mWebsiteIcon.setVisibility(View.VISIBLE);
+            } else {
+                mWebsiteIcon.setVisibility(View.GONE);
             }
         }
 
@@ -219,6 +234,9 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             final Component nameComponent = components.getFull_name();
             if (nameComponent != null) {
                 nameTextView.setText(nameComponent.getVal());
+                final String userNameString = "(" + components.getUsername().getVal() + ")";
+                mUsernameTextView.setText(userNameString);
+                mUsernameTextView.setVisibility(View.VISIBLE);
                 return;
             }
             final String name = components.getUsername().getVal();
@@ -233,7 +251,7 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         public SearchViewHolder(View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.card_user_info);
-            nameTextView = (TextView) itemView.findViewById(R.id.tv_user_name);
+            nameTextView = (TextView) itemView.findViewById(R.id.tv_name);
         }
     }
 }

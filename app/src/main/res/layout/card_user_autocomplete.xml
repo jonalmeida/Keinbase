@@ -24,7 +24,6 @@
             android:maxWidth="64dp"
             android:maxHeight="64dp"
             android:adjustViewBounds="true"
-            android:src="@drawable/placeholder_avatar"
             android:contentDescription="@string/card_user_photo"
             android:id="@+id/iv_user_photo"/>
 
@@ -33,14 +32,30 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/iv_user_photo"
+            android:layout_marginEnd="3dp"
             android:text="@string/placeholder_name"
             android:textSize="20sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:id="@+id/tv_name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/tv_name"
+            android:textColor="@color/secondary_text"
+            android:textStyle="italic"
+            android:textSize="15sp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:visibility="gone"
             android:id="@+id/tv_user_name"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_user_name"
+            android:layout_below="@+id/tv_name"
             android:layout_toEndOf="@+id/iv_user_photo"
             android:orientation="horizontal">
 
