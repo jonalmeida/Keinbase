@@ -18,11 +18,11 @@ import com.jonalmeida.keinbase.pojos.Component;
 import com.jonalmeida.keinbase.pojos.Components;
 import com.jonalmeida.keinbase.pojos.CryptoCurrency;
 import com.jonalmeida.keinbase.pojos.User;
+import com.jonalmeida.keinbase.pojos.WebsiteComponent;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdapter.SearchViewHolder> {
 
@@ -155,6 +155,9 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         private final ImageView mBitcoinIcon;
         private final ImageView mGithubIcon;
         private final ImageView mHackerNewsIcon;
+        private final ImageView mRedditIcon;
+        private final ImageView mWebsiteIcon;
+        private final ImageView mTwitterIcon;
 
         public SearchAutocompleteViewHolder(View itemView) {
             super(itemView);
@@ -162,12 +165,14 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             mBitcoinIcon = (ImageView) itemView.findViewById(R.id.iv_bitcoin_icon);
             mGithubIcon = (ImageView) itemView.findViewById(R.id.iv_github_icon);
             mHackerNewsIcon = (ImageView) itemView.findViewById(R.id.iv_hn_icon);
+            mRedditIcon = (ImageView) itemView.findViewById(R.id.iv_reddit_icon);
+            mWebsiteIcon = (ImageView) itemView.findViewById(R.id.iv_website_icon);
+            mTwitterIcon = (ImageView) itemView.findViewById(R.id.iv_twitter_icon);
         }
 
         public void bindItem(final Completion completion) {
             final Components components = completion.getComponents();
-            final String name = components.getUsername().getVal();
-            nameTextView.setText(name);
+            setName(components);
             setThumbnailImage(completion);
             setSocialIcons(components);
         }
@@ -196,6 +201,28 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
             if (hn != null) {
                 mHackerNewsIcon.setVisibility(View.VISIBLE);
             }
+            final Component reddit = components.getReddit();
+            if (reddit != null) {
+                mRedditIcon.setVisibility(View.VISIBLE);
+            }
+            final Component twitter = components.getTwitter();
+            if (twitter != null) {
+                mTwitterIcon.setVisibility(View.VISIBLE);
+            }
+            final List<WebsiteComponent> websites = components.getWebsites();
+            if (websites != null) {
+                mWebsiteIcon.setVisibility(View.VISIBLE);
+            }
+        }
+
+        private void setName(final Components components) {
+            final Component nameComponent = components.getFull_name();
+            if (nameComponent != null) {
+                nameTextView.setText(nameComponent.getVal());
+                return;
+            }
+            final String name = components.getUsername().getVal();
+            nameTextView.setText(name);
         }
     }
 

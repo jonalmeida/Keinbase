@@ -45,7 +45,7 @@
             android:layout_alignBottom="@+id/tv_user_coinbase"
             android:maxWidth="16dp"
             android:maxHeight="16dp"
-            android:src="@drawable/bitcoin"
+            android:src="@drawable/user_card_icon_bitcoin"
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription"
             android:id="@+id/iv_bitcoin_icon"/>

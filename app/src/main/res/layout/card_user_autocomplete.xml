@@ -52,7 +52,7 @@
             android:maxWidth="16dp"
             android:maxHeight="16dp"
             android:visibility="gone"
-            android:src="@drawable/bitcoin"
+            android:src="@drawable/user_card_icon_bitcoin"
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription"
             android:id="@+id/iv_bitcoin_icon"/>
@@ -61,27 +61,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:maxWidth="16dp"
             android:maxHeight="16dp"
             android:visibility="gone"
-            android:src="@drawable/github"
+            android:src="@drawable/user_card_icon_github"
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription"
-            android:id="@+id/iv_github_icon"
-            android:layout_marginEnd="10dp"/>
+            android:id="@+id/iv_github_icon"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
             android:maxWidth="16dp"
             android:maxHeight="16dp"
             android:visibility="gone"
-            android:src="@drawable/hackernews"
+            android:src="@drawable/user_card_icon_hackernews"
             android:adjustViewBounds="true"
             tools:ignore="ContentDescription"
             android:id="@+id/iv_hn_icon"/>
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:maxWidth="16dp"
+            android:maxHeight="16dp"
+            android:visibility="gone"
+            android:src="@drawable/user_card_icon_reddit"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription"
+            android:id="@+id/iv_reddit_icon"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:maxWidth="16dp"
+            android:maxHeight="16dp"
+            android:visibility="gone"
+            android:src="@drawable/user_card_icon_website"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription"
+            android:id="@+id/iv_website_icon"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:maxWidth="16dp"
+            android:maxHeight="16dp"
+            android:visibility="gone"
+            android:src="@drawable/user_card_icon_twitter"
+            android:adjustViewBounds="true"
+            tools:ignore="ContentDescription"
+            android:id="@+id/iv_twitter_icon"/>
 
         </LinearLayout>
 
