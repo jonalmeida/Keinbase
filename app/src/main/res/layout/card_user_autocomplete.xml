@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/frameLayout"
         android:padding="8dp"
+        android:background="?android:attr/selectableItemBackground"
         android:id="@+id/details_layout">
 
         <ImageView
