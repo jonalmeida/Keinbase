@@ -42,14 +42,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_alignBottom="@+id/tv_name"
             android:layout_toEndOf="@+id/tv_name"
+            android:layout_alignTop="@+id/tv_name"
             android:textColor="@color/secondary_text"
             android:textStyle="italic"
             android:textSize="15sp"
+            android:gravity="center_vertical"
             android:singleLine="true"
             android:ellipsize="end"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/tv_user_name"/>
 
         <LinearLayout
