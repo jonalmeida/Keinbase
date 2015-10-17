@@ -45,8 +45,8 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
     public SearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case VIEW_TYPE_USER:
-                View v1 = LayoutInflater.from(mContext).inflate(R.layout.card_user, parent, false);
-                return new SearchUserViewHolder(v1);
+//                View v1 = LayoutInflater.from(mContext).inflate(R.layout.card_user, parent, false);
+//                return new SearchUserViewHolder(v1);
             case VIEW_TYPE_AUTOCOMPLETE:
                 View v2 = LayoutInflater.from(mContext).inflate(R.layout.card_user_autocomplete, parent, false);
                 return new SearchAutocompleteViewHolder(v2);
@@ -57,11 +57,11 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position) {
-        if (!mUserResults.isEmpty()) {
-            ((SearchUserViewHolder) holder).bindItem(mUserResults.get(position));
-        } else {
+//        if (!mUserResults.isEmpty()) {
+//            ((SearchUserViewHolder) holder).bindItem(mUserResults.get(position));
+//        } else {
             ((SearchAutocompleteViewHolder) holder).bindItem(mUserCompletions.get(position));
-        }
+//        }
     }
 
     @Override
@@ -103,52 +103,52 @@ public class KeybaseSearchAdapter extends RecyclerView.Adapter<KeybaseSearchAdap
         });
     }
 
-    public static class SearchUserViewHolder extends SearchViewHolder {
-        private final TextView mCoinbaseTextView;
-        private final ImageView mProfileImageView;
-
-        public SearchUserViewHolder(View itemView) {
-            super(itemView);
-            mCoinbaseTextView = (TextView) itemView.findViewById(R.id.tv_user_coinbase);
-            mProfileImageView = (ImageView) itemView.findViewById(R.id.iv_user_photo);
-        }
-
-        public void bindItem(final User user) {
-            String username = user.getBasics().getUsername();
-            if (user.getProfile().getFull_name() != null) {
-                username = user.getProfile().getFull_name();
-            }
-            nameTextView.setText(username);
-
-            final String bitcoinHash = getCoinbaseHash(user);
-            if (bitcoinHash != null) {
-                mCoinbaseTextView.setText(bitcoinHash);
-            }
-            setProfileImage(user);
-        }
-
-        private @Nullable String getCoinbaseHash(final User user) {
-            CryptoCurrency cryptoCurrency = user.getCryptocurrency_addresses();
-            if (cryptoCurrency == null) {
-                return null;
-            }
-            List<Bitcoin> addresses = cryptoCurrency.getBitcoin();
-            if (addresses.size() == 0) {
-                return null;
-            }
-
-            // Return the first address we find.
-            return addresses.get(0).getAddress();
-        }
-
-        private void setProfileImage(User user) {
-            String imageUrl = user.getPictures().getPrimaryUrl();
-            if (imageUrl == null || imageUrl.length() == 0) {
-                return;
-            }
-            Picasso.with(itemView.getContext()).load(imageUrl).into(mProfileImageView);
-        }
-    }
+//    public static class SearchUserViewHolder extends SearchViewHolder {
+//        private final TextView mCoinbaseTextView;
+//        private final ImageView mProfileImageView;
+//
+//        public SearchUserViewHolder(View itemView) {
+//            super(itemView);
+//            mCoinbaseTextView = (TextView) itemView.findViewById(R.id.tv_user_coinbase);
+//            mProfileImageView = (ImageView) itemView.findViewById(R.id.iv_user_photo);
+//        }
+//
+//        public void bindItem(final User user) {
+//            String username = user.getBasics().getUsername();
+//            if (user.getProfile().getFull_name() != null) {
+//                username = user.getProfile().getFull_name();
+//            }
+//            nameTextView.setText(username);
+//
+//            final String bitcoinHash = getCoinbaseHash(user);
+//            if (bitcoinHash != null) {
+//                mCoinbaseTextView.setText(bitcoinHash);
+//            }
+//            setProfileImage(user);
+//        }
+//
+//        private @Nullable String getCoinbaseHash(final User user) {
+//            CryptoCurrency cryptoCurrency = user.getCryptocurrency_addresses();
+//            if (cryptoCurrency == null) {
+//                return null;
+//            }
+//            List<Bitcoin> addresses = cryptoCurrency.getBitcoin();
+//            if (addresses.size() == 0) {
+//                return null;
+//            }
+//
+//            // Return the first address we find.
+//            return addresses.get(0).getAddress();
+//        }
+//
+//        private void setProfileImage(User user) {
+//            String imageUrl = user.getPictures().getPrimaryUrl();
+//            if (imageUrl == null || imageUrl.length() == 0) {
+//                return;
+//            }
+//            Picasso.with(itemView.getContext()).load(imageUrl).into(mProfileImageView);
+//        }
+//    }
 
     public static class SearchAutocompleteViewHolder extends SearchViewHolder {
         private final TextView mUsernameTextView;
