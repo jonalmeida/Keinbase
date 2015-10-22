@@ -23,7 +23,7 @@
 
     </FrameLayout>
 
-    <com.jonalmeida.keinbase.KeybaseSearchResultsView
+    <com.jonalmeida.keinbase.ui.recycler.KeybaseSearchResultsView
         android:id="@+id/rv_search_results"
         android:clipToPadding="false"
         android:paddingTop="10dp"
@@ -34,6 +34,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/frame_et_search">
 
-    </com.jonalmeida.keinbase.KeybaseSearchResultsView>
+    </com.jonalmeida.keinbase.ui.recycler.KeybaseSearchResultsView>
 
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.jonalmeida.keinbase;
+package com.jonalmeida.keinbase.ui.activities;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 import com.coinbase.android.sdk.OAuth;
 import com.coinbase.api.exception.CoinbaseException;
+import com.jonalmeida.keinbase.MainViewPagerAdapter;
+import com.jonalmeida.keinbase.R;
 
 public class MainActivity extends AppCompatActivity {
 

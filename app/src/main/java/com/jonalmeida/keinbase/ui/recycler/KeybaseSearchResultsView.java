@@ -1,4 +1,4 @@
-package com.jonalmeida.keinbase;
+package com.jonalmeida.keinbase.ui.recycler;
 
 import android.content.Context;
 import android.os.Handler;
@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.jonalmeida.keinbase.util.ItemClickSupport;
+import com.jonalmeida.keinbase.util.JsonSerializer;
+import com.jonalmeida.keinbase.KeybaseSearchAdapter;
+import com.jonalmeida.keinbase.KeybaseSearchManager;
 import com.jonalmeida.keinbase.pojos.Completion;
 
 import java.io.IOException;
@@ -17,7 +21,7 @@ import java.util.List;
 
 public class KeybaseSearchResultsView extends RecyclerView
         implements KeybaseSearchManager.Response,
-                   ItemClickSupport.OnItemClickListener {
+        ItemClickSupport.OnItemClickListener {
     private static final String LOGTAG = KeybaseSearchResultsView.class.getSimpleName();
 
     private final KeybaseSearchAdapter mAdapter;

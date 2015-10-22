@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.jonalmeida.keinbase.ui.recycler.KeybaseSearchResultsView;
+
 import java.util.Timer;
 import java.util.TimerTask;
 

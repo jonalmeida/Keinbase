@@ -1,10 +1,12 @@
-package com.jonalmeida.keinbase;
+package com.jonalmeida.keinbase.util;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.jonalmeida.keinbase.R;
+
 /**
- * {@link RecyclerViewClickSupport} implementation that will notify an OnClickListener about clicks and long clicks
+ * {@link ItemClickSupport} implementation that will notify an OnClickListener about clicks and long clicks
  * on items displayed by the RecyclerView.
  * @see <a href="http://www.littlerobots.nl/blog/Handle-Android-RecyclerView-Clicks/">littlerobots.nl</a>
  */

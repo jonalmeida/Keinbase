@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.jonalmeida.keinbase.util.Constants;
+import com.jonalmeida.keinbase.util.JsonSerializer;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

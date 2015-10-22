@@ -1,4 +1,4 @@
-package com.jonalmeida.keinbase;
+package com.jonalmeida.keinbase.util;
 
 import android.util.Log;
 
