@@ -14,30 +14,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/iv_user_photo"/>-->
-
-        <com.joooonho.SelectableRoundedImageView
-            android:layout_height="wrap_content"
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            app:sriv_left_top_corner_radius="16dip"
-            app:sriv_right_top_corner_radius="0dip"
-            app:sriv_left_bottom_corner_radius="48dip"
-            app:sriv_right_bottom_corner_radius="16dip"
-            app:sriv_border_width="2dip"
-            app:sriv_border_color="#008fea"
-            app:sriv_oval="true"
-            android:maxWidth="64dp"
-            android:maxHeight="64dp"
-            android:adjustViewBounds="true"
-            android:src="@drawable/placeholder_avatar"
-            android:contentDescription="@string/card_user_photo"
-            android:id="@+id/iv_user_photo" />
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_user_photo"/>
+
+        <!--<com.joooonho.SelectableRoundedImageView-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--app:sriv_left_top_corner_radius="16dip"-->
+            <!--app:sriv_right_top_corner_radius="0dip"-->
+            <!--app:sriv_left_bottom_corner_radius="48dip"-->
+            <!--app:sriv_right_bottom_corner_radius="16dip"-->
+            <!--app:sriv_border_width="2dip"-->
+            <!--app:sriv_border_color="#008fea"-->
+            <!--app:sriv_oval="true"-->
+            <!--android:maxWidth="64dp"-->
+            <!--android:maxHeight="64dp"-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:src="@drawable/placeholder_avatar"-->
+            <!--android:contentDescription="@string/card_user_photo"-->
+            <!--android:id="@+id/iv_user_photo" />-->
 
         <View
             android:layout_width="fill_parent"
