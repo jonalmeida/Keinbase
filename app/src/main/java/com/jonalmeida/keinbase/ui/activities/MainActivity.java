@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPageAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
     }
 
     @Override
