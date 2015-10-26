@@ -4,7 +4,7 @@
                 android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/frame_et_search"
+        android:id="@+id/frame_search"
         android:elevation="6dp"
         android:background="@android:color/white"
         android:layout_width="match_parent"
@@ -27,12 +27,9 @@
         android:id="@+id/rv_search_results"
         android:clipToPadding="false"
         android:paddingTop="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/frame_et_search">
+        android:layout_below="@+id/frame_search">
 
     </com.jonalmeida.keinbase.ui.recycler.KeybaseSearchResultsView>
 
