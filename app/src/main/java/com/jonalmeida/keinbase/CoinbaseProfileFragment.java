@@ -9,17 +9,16 @@ import android.widget.Button;
 
 import com.coinbase.android.sdk.OAuth;
 import com.coinbase.api.exception.CoinbaseException;
+import com.jonalmeida.keinbase.util.ApiKey;
 
 public class CoinbaseProfileFragment extends Fragment {
-
-    private static final String REDIRECT_URI = "keinbase://coinbase-oauth";
-    private static final String CLIENT_ID = "2e9bcf464cd4054c80a2a27cd49ef70934ff68aceef93d176f57ac4922463fb1";
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         // Check if logged in, then inflate view accordingly
         View rootView = inflater.inflate(R.layout.fragment_coinbase_sign_in, container, false);
+        setLoginListeners(rootView);
         return rootView;
     }
 
@@ -29,7 +28,8 @@ public class CoinbaseProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    OAuth.beginAuthorization(getActivity(), CLIENT_ID, "user", REDIRECT_URI, null);
+                    OAuth.beginAuthorization(getActivity(), ApiKey.getClientId(),
+                            "user", ApiKey.getRedirectUri(), null);
                 } catch (CoinbaseException e) {
                     e.printStackTrace();
                 }
