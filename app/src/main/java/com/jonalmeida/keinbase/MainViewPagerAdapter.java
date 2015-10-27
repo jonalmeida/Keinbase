@@ -13,12 +13,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     private static final String LOGTAG = MainViewPagerAdapter.class.getSimpleName();
 
-    private final KeybaseSearchFragment mSearchFragment;
-    private final String[] TITLES = { "Search", "Tracking", "Profile", "Fourth", "Fifth" };
+    private final String[] TITLES = { "Search", "Tracking", "Profile", "Coinbase", "Fifth" };
 
     public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        mSearchFragment = new KeybaseSearchFragment();
     }
 
     @Override
@@ -28,8 +26,10 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-       if (position == 0) {
-            return mSearchFragment;
+        if (position == 0) {
+            return new KeybaseSearchFragment();
+        } else if (position == 3) {
+            return new CoinbaseProfileFragment();
         }
         MainPagerFragment fragment = new MainPagerFragment();
         Bundle args = new Bundle();

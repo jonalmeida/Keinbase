@@ -27,11 +27,11 @@
         <item name="background">@color/primary_dark</item>
         <item name="android:textColor">@color/primary_light</item>
         <item name="tabIndicatorColor">@color/accent</item>
-        <item name="tabTextAppearance">@style/FennecTabs</item>
+        <item name="tabTextAppearance">@style/TabsTextStyle</item>
         <item name="tabSelectedTextColor">#ffffff</item>
     </style>
 
-    <style name="FennecTabs" parent="TextAppearance.Design.Tab">
+    <style name="TabsTextStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textColor">#b4b6b8</item>
     </style>
 

@@ -8,4 +8,6 @@
     <string name="card_user_photo"/>
     <string name="placeholder_name">John Doe</string>
     <string name="placeholder_bitcoin_hash">1Nwrzm3HiirdhuCwZoCpiv8bdziL3wZTyL</string>
+    <string name="connect_coinbase_account">Connect your Coinbase account</string>
+    <string name="login">Login</string>
 </resources>
