@@ -40,7 +40,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
 
     //compile 'com.joooonho:selectableroundedimageview:1.0.1'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.4.0'
 
     // Coinbase but re-imported manually
-    //compile 'com.coinbase.android:coinbase-android-sdk:1.0.1'
+    compile 'com.coinbase.android:coinbase-android-sdk:1.0.1'
 }
