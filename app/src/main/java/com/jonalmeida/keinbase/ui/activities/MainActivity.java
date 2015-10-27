@@ -12,15 +12,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.coinbase.android.sdk.OAuth;
-import com.coinbase.api.exception.CoinbaseException;
 import com.jonalmeida.keinbase.MainViewPagerAdapter;
 import com.jonalmeida.keinbase.R;
 
 public class MainActivity extends AppCompatActivity {
-
-    static final String REDIRECT_URI = "keinbase://coinbase-oauth";
-    private static final String CLIENT_ID = "2e9bcf464cd4054c80a2a27cd49ef70934ff68aceef93d176f57ac4922463fb1";
 
     private DrawerLayout mDrawerLayout;
     private ViewPager mViewPager;
@@ -79,9 +74,4 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
     }
-//        try {
-//            OAuth.beginAuthorization(this, CLIENT_ID, "user", REDIRECT_URI, null);
-//        } catch (CoinbaseException e) {
-//            e.printStackTrace();
-//        }
 }
