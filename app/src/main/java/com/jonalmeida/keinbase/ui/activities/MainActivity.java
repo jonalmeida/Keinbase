@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ViewPager mViewPager;
-    private PagerAdapter mPageAdapter;
+    private PagerAdapter mPagerAdapter;
     private TabLayout mTabLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
         mTabLayout      = (TabLayout)       findViewById(R.id.tabs);
         mToolbar        = (Toolbar)         findViewById(R.id.toolbar);
         mNavigationView = (NavigationView)  findViewById(R.id.nav_view);
-        mPageAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
 
         if (mNavigationView != null) {
             setupDrawerContent(mNavigationView);
         }
-        mViewPager.setAdapter(mPageAdapter);
+        mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
