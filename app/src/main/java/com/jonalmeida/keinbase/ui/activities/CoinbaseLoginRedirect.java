@@ -1,8 +1,11 @@
 package com.jonalmeida.keinbase.ui.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,7 +24,7 @@ import java.util.TimerTask;
 
 public class CoinbaseLoginRedirect extends AppCompatActivity {
     private static final String LOGTAG = CoinbaseLoginRedirect.class.getSimpleName();
-
+    private final Context mContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,10 @@ public class CoinbaseLoginRedirect extends AppCompatActivity {
         @Override
         protected void onPostExecute(OAuthTokensResponse response) {
             if (response.getAccessToken() != null) {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putString(ApiKey.COINBASE_CLIENT_KEY, response.getAccessToken());
+                editor.apply();
                 (findViewById(R.id.redirect_tv_waiting)).setVisibility(View.GONE);
                 (findViewById(R.id.redirect_tv_success)).setVisibility(View.VISIBLE);
                 new Timer().schedule(new TimerTask() {
