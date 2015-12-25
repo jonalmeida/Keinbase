@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -66,8 +67,9 @@ public class CoinbaseProfileFragment extends Fragment {
     }
 
     private void setupProfileView(View view) {
-        TextView textView = (TextView) view.findViewById(R.id.tv_coinbase_username);
-        new DisplayEmailTask(textView).execute(OAUTH_TOKEN);
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
+        new DisplayEmailTask(collapsingToolbar).execute(OAUTH_TOKEN);
     }
 
     private void setLoginListeners(View view) {
@@ -87,9 +89,9 @@ public class CoinbaseProfileFragment extends Fragment {
 
     class DisplayEmailTask extends AsyncTask<String, Void, Void> {
 
-        TextView textView;
+        CollapsingToolbarLayout textView;
 
-        public DisplayEmailTask(TextView view) {
+        public DisplayEmailTask(CollapsingToolbarLayout view) {
             textView = view;
         }
 
@@ -114,7 +116,7 @@ public class CoinbaseProfileFragment extends Fragment {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    textView.setText(email);
+                    textView.setTitle(email);
                 }
             });
         }
