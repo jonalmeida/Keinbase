@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,21 +27,42 @@ public class CoinbaseProfileFragment extends Fragment {
     private static final String LOGTAG = CoinbaseProfileFragment.class.getSimpleName();
     private String OAUTH_TOKEN;
 
+    private SharedPreferences mPrefs;
+//    private boolean mInitialSetup = true;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView;
         // Check if logged in, then inflate view accordingly
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (prefs.contains(ApiKey.COINBASE_CLIENT_KEY)) {
-            OAUTH_TOKEN = prefs.getString(ApiKey.COINBASE_CLIENT_KEY, null);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (mPrefs.contains(ApiKey.COINBASE_CLIENT_KEY)) {
+            OAUTH_TOKEN = mPrefs.getString(ApiKey.COINBASE_CLIENT_KEY, null);
             rootView = inflater.inflate(R.layout.fragment_coinbase_profile, container, false);
             setupProfileView(rootView);
         } else {
             rootView = inflater.inflate(R.layout.fragment_coinbase_sign_in, container, false);
+            //mInitialSetup = false;
             setLoginListeners(rootView);
         }
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        if (mInitialSetup) {
+//            return;
+//        }
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+//        if (mPrefs.contains(ApiKey.COINBASE_CLIENT_KEY)) {
+//            OAUTH_TOKEN = mPrefs.getString(ApiKey.COINBASE_CLIENT_KEY, null);
+//            FragmentTransaction transaction = fragmentManager.beginTransaction();
+//            transaction.replace(R.id.fragment_coinbase_signin, new CoinbaseProfileFragment());
+//            transaction.addToBackStack(null);
+//            transaction.commit();
+//        }
     }
 
     private void setupProfileView(View view) {
