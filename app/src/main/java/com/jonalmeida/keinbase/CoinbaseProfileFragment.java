@@ -6,13 +6,14 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.coinbase.android.sdk.OAuth;
 import com.coinbase.api.Coinbase;
@@ -91,9 +92,9 @@ public class CoinbaseProfileFragment extends Fragment {
     }
 
     private void setupProfileView(View view) {
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) view.findViewById(R.id.collapsing_toolbar);
-        new DisplayEmailTask(collapsingToolbar).execute(OAUTH_TOKEN);
+        CardView cardView =
+                (CardView) view.findViewById(R.id.coinbase_profile_card_view);
+        new DisplayUserProfileTask(cardView).execute(OAUTH_TOKEN);
     }
 
     private void setLoginListeners(View view) {
@@ -115,17 +116,18 @@ public class CoinbaseProfileFragment extends Fragment {
         mReAuthListener = listener;
     }
 
-    class DisplayEmailTask extends AsyncTask<String, Void, Void> {
+    class DisplayUserProfileTask extends AsyncTask<String, Void, Void> {
 
-        CollapsingToolbarLayout toolbarLayout;
+        CardView cardView;
+        TextView titleTextView;
 
-        public DisplayEmailTask(CollapsingToolbarLayout view) {
-            toolbarLayout = view;
+        public DisplayUserProfileTask(CardView view) {
+            cardView = view;
         }
 
         @Override
         protected void onPreExecute() {
-
+            titleTextView = (TextView) cardView.findViewById(R.id.coinbase_profile_username);
         }
 
         @Override
@@ -135,8 +137,7 @@ public class CoinbaseProfileFragment extends Fragment {
                 String authToken = strings[0];
                 final Coinbase coinbase = new CoinbaseBuilder().withAccessToken(authToken).build();
                 try {
-                    setToolbarLayout(coinbase.getUser().getEmail());
-                    User user = coinbase.getUser();
+                    setProfileCard(coinbase.getUser());
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (UnauthorizedException e) {
@@ -150,11 +151,11 @@ public class CoinbaseProfileFragment extends Fragment {
             return null;
         }
 
-        private void setToolbarLayout(final String email) {
+        private void setProfileCard(final User user) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    toolbarLayout.setTitle(email);
+                    titleTextView.setText(user.getUsername());
                 }
             });
         }
