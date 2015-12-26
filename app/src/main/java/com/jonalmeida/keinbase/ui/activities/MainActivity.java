@@ -3,7 +3,6 @@ package com.jonalmeida.keinbase.ui.activities;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
     private ViewPager mViewPager;
-    private PagerAdapter mPagerAdapter;
+    private MainViewPagerAdapter mPagerAdapter;
     private TabLayout mTabLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
@@ -35,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         mToolbar        = (Toolbar)         findViewById(R.id.toolbar);
         mNavigationView = (NavigationView)  findViewById(R.id.nav_view);
         mPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        mPagerAdapter.setContext(getApplicationContext());
 
         if (mNavigationView != null) {
             setupDrawerContent(mNavigationView);

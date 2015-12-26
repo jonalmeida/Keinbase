@@ -1,24 +1,25 @@
 package com.jonalmeida.keinbase;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.coinbase.android.sdk.OAuth;
 import com.coinbase.api.Coinbase;
 import com.coinbase.api.CoinbaseBuilder;
+import com.coinbase.api.entity.User;
 import com.coinbase.api.exception.CoinbaseException;
+import com.coinbase.api.exception.UnauthorizedException;
 import com.jonalmeida.keinbase.util.ApiKey;
 
 import java.io.IOException;
@@ -29,7 +30,30 @@ public class CoinbaseProfileFragment extends Fragment {
     private String OAUTH_TOKEN;
 
     private SharedPreferences mPrefs;
-//    private boolean mInitialSetup = true;
+    //private boolean mInitialSetup = true;
+    private MainViewPagerAdapter.RequestReAuthListener mReAuthListener;
+
+    public static CoinbaseProfileFragment newInstance(MainViewPagerAdapter.RequestReAuthListener listener) {
+        Bundle args = new Bundle();
+        CoinbaseProfileFragment fragment = new CoinbaseProfileFragment();
+        fragment.setReAuthListener(listener);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @SuppressLint("ValidFragment")
+    public CoinbaseProfileFragment(Context context) {
+        if (mPrefs == null) {
+            mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        }
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.remove(ApiKey.COINBASE_CLIENT_KEY);
+        editor.apply();
+    }
+
+    public CoinbaseProfileFragment() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -87,12 +111,21 @@ public class CoinbaseProfileFragment extends Fragment {
         });
     }
 
+    public void setReAuthListener(MainViewPagerAdapter.RequestReAuthListener listener) {
+        mReAuthListener = listener;
+    }
+
     class DisplayEmailTask extends AsyncTask<String, Void, Void> {
 
-        CollapsingToolbarLayout textView;
+        CollapsingToolbarLayout toolbarLayout;
 
         public DisplayEmailTask(CollapsingToolbarLayout view) {
-            textView = view;
+            toolbarLayout = view;
+        }
+
+        @Override
+        protected void onPreExecute() {
+
         }
 
         @Override
@@ -102,9 +135,14 @@ public class CoinbaseProfileFragment extends Fragment {
                 String authToken = strings[0];
                 final Coinbase coinbase = new CoinbaseBuilder().withAccessToken(authToken).build();
                 try {
-                    setTextView(coinbase.getUser().getEmail());
+                    setToolbarLayout(coinbase.getUser().getEmail());
+                    User user = coinbase.getUser();
                 } catch (IOException e) {
                     e.printStackTrace();
+                } catch (UnauthorizedException e) {
+                    Log.e(LOGTAG, "Coinbase token may have expired, requesting reauth..");
+                    mReAuthListener.requestReAuth();
+                    //e.printStackTrace();
                 } catch (CoinbaseException e) {
                     e.printStackTrace();
                 }
@@ -112,11 +150,11 @@ public class CoinbaseProfileFragment extends Fragment {
             return null;
         }
 
-        private void setTextView(final String email) {
+        private void setToolbarLayout(final String email) {
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    textView.setTitle(email);
+                    toolbarLayout.setTitle(email);
                 }
             });
         }

@@ -1,5 +1,6 @@
 package com.jonalmeida.keinbase;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,9 +15,13 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
     private static final String LOGTAG = MainViewPagerAdapter.class.getSimpleName();
 
     private final String[] TITLES = { "Search", "Tracking", "Profile", "Coinbase", "Fifth" };
+    private final FragmentManager mFragmentManager;
+    private CoinbaseProfileFragment coinbaseProfileFragment;
+    private Context mContext;
 
     public MainViewPagerAdapter(FragmentManager fm) {
         super(fm);
+        mFragmentManager = fm;
     }
 
     @Override
@@ -29,7 +34,15 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return new KeybaseSearchFragment();
         } else if (position == 3) {
-            return new CoinbaseProfileFragment();
+            coinbaseProfileFragment = CoinbaseProfileFragment.newInstance(new RequestReAuthListener() {
+                @Override
+                public void requestReAuth() {
+                    mFragmentManager.beginTransaction().remove(coinbaseProfileFragment).commit();
+                    coinbaseProfileFragment = new CoinbaseProfileFragment(mContext);
+                }
+            });
+
+            return coinbaseProfileFragment;
         }
         MainPagerFragment fragment = new MainPagerFragment();
         Bundle args = new Bundle();
@@ -56,5 +69,13 @@ public class MainViewPagerAdapter extends FragmentPagerAdapter {
                     .setText(Integer.toString(args.getInt(ARG_OBJECT)));
             return rootView;
         }
+    }
+
+    public void setContext(Context context) {
+        mContext = context;
+    }
+
+    public interface RequestReAuthListener {
+        void requestReAuth();
     }
 }
