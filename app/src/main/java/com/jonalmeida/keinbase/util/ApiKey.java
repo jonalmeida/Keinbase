@@ -2,8 +2,8 @@ package com.jonalmeida.keinbase.util;
 
 public class ApiKey {
     // Remove the surrounding comments after adding your key.
-    private static String CLIENT_SECRET /* = "CLIENT_SECRET_HERE */;
-    private static String CLIENT_ID /* = "CLIENT_ID_HERE */;
+    private static String CLIENT_SECRET /* = "CLIENT_SECRET_HERE" */;
+    private static String CLIENT_ID /* = "CLIENT_ID_HERE" */;
     private static final String REDIRECT_URI = "keinbase://coinbase-oauth";
 
     public static String getClientSecret() {
