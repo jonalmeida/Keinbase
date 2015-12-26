@@ -16,6 +16,7 @@ import com.coinbase.api.entity.OAuthTokensResponse;
 import com.coinbase.api.exception.UnauthorizedException;
 import com.jonalmeida.keinbase.R;
 import com.jonalmeida.keinbase.util.ApiKey;
+import com.jonalmeida.keinbase.util.Constants;
 
 import java.io.IOException;
 import java.util.Timer;
@@ -74,7 +75,7 @@ public class CoinbaseLoginRedirect extends AppCompatActivity {
             if (response.getAccessToken() != null) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
                 SharedPreferences.Editor editor = prefs.edit();
-                editor.putString(ApiKey.COINBASE_CLIENT_KEY, response.getAccessToken());
+                editor.putString(Constants.PREF_COINBASE_CLIENT_KEY, response.getAccessToken());
                 editor.apply();
                 (findViewById(R.id.redirect_tv_waiting)).setVisibility(View.GONE);
                 (findViewById(R.id.redirect_tv_success)).setVisibility(View.VISIBLE);

@@ -22,6 +22,7 @@ import com.coinbase.api.entity.User;
 import com.coinbase.api.exception.CoinbaseException;
 import com.coinbase.api.exception.UnauthorizedException;
 import com.jonalmeida.keinbase.util.ApiKey;
+import com.jonalmeida.keinbase.util.Constants;
 
 import java.io.IOException;
 
@@ -48,7 +49,7 @@ public class CoinbaseProfileFragment extends Fragment {
             mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         }
         SharedPreferences.Editor editor = mPrefs.edit();
-        editor.remove(ApiKey.COINBASE_CLIENT_KEY);
+        editor.remove(Constants.PREF_COINBASE_CLIENT_KEY);
         editor.apply();
     }
 
@@ -62,8 +63,8 @@ public class CoinbaseProfileFragment extends Fragment {
         View rootView;
         // Check if logged in, then inflate view accordingly
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        if (mPrefs.contains(ApiKey.COINBASE_CLIENT_KEY)) {
-            OAUTH_TOKEN = mPrefs.getString(ApiKey.COINBASE_CLIENT_KEY, null);
+        if (mPrefs.contains(Constants.PREF_COINBASE_CLIENT_KEY)) {
+            OAUTH_TOKEN = mPrefs.getString(Constants.PREF_COINBASE_CLIENT_KEY, null);
             rootView = inflater.inflate(R.layout.fragment_coinbase_profile, container, false);
             setupProfileView(rootView);
         } else {
